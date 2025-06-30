@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glitchy Surveillance Clue</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0f0f0f;
+      font-family: 'Courier New', monospace;
+      color: #33ff33;
+      overflow: hidden;
+    }
+
+    .glitch-text {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 1.25em;
+      color: #33ff33;
+      text-shadow: 0 0 5px #33ff33;
+      animation: flicker 1.5s infinite alternate;
+      z-index: 10;
+    }
+
+    @keyframes flicker {
+      0%   { opacity: 1; }
+      50%  { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    .cctv-frame {
+      width: 85vw;
+      max-width: 900px;
+      margin: 100px auto 20px;
+      border: 10px solid #1aff1a;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #1aff1a, 0 0 60px #1aff1a inset;
+      background: #000;
+      position: relative;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      overflow: hidden;
+      border-top: 2px solid #1aff1a;
+      border-bottom: 2px solid #1aff1a;
+    }
+
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.5) brightness(0.8) blur(0.5px);
+      animation: glitchAnim 1s infinite;
+    }
+
+    @keyframes glitchAnim {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(1px, -1px); }
+      40% { transform: translate(-1px, 1px); }
+      60% { transform: translate(1px, 1px); }
+      80% { transform: translate(-1px, -1px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .glitch-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 0, 0.05) 0px,
+        rgba(0, 255, 0, 0.05) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
+      animation: scanlines 0.25s infinite;
+    }
+
+    @keyframes scanlines {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 4px; }
+    }
+
+    .recording-indicator {
+      position: absolute;
+      top: -20px;
+      right: 15px;
+      width: 15px;
+      height: 15px;
+      background-color: red;
+      border-radius: 50%;
+      box-shadow: 0 0 10px red;
+      animation: blink 1s infinite;
+      z-index: 20;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    .label-bar {
+      background: #000;
+      color: #33ff33;
+      font-size: 0.9em;
+      padding: 5px 10px;
+      border-top: 1px solid #33ff33;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .password-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      background: black;
+      border: 1px solid #33ff33;
+      color: #33ff33;
+      padding: 5px 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="glitch-text">// Surveillance Feed // Sector 7 - NODE 042</div>
+
+  <div class="cctv-frame">
+    <div class="recording-indicator"></div>
+    <div class="video-container">
+      <video autoplay muted loop>
+        <source src="20250630_2050_Mysterious%20Journey%20Underground_simple_compose_01jz1682v0etat4ksddzwc5h6v.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="glitch-overlay"></div>
+    </div>
+    <div class="label-bar">CAM 7 | SIGNAL STABLE | RECORDING</div>
+  </div>
+
+  <div class="password-section">
+    <p>Enter password to decrypt log:</p>
+    <input type="text" placeholder="********" oninput="checkPassword(this.value)" />
+    <p id="message"></p>
+  </div>
+
+  <script>
+    function checkPassword(val) {
+      const message = document.getElementById('message');
+      if (val.toLowerCase() === '6429') {
+        message.textContent = 'ACCESS GRANTED. NEXT NODE: /sector9';
+        message.style.color = '#33ff33';
+      } else {
+        message.textContent = '';
+      }
+    }
+  </script>
+</body>
+</html>
